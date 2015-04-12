@@ -1,0 +1,85 @@
+buildscript {
+    repositories {
+        maven {
+            url "http://gear.glad.so:81/nexus/content/groups/public/"
+        }
+    }
+}
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'idea'
+apply plugin: 'maven-publish'
+
+group = 'so.glad.channel'
+version = '1.0.0'
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    maven {
+        url "http://gear.glad.so:81/nexus/content/groups/public/"
+    }
+}
+
+configurations {
+    providedRuntime
+}
+
+dependencies {
+    compile("com.google.guava:guava:18.0")
+    testCompile("so.glad:soglad-test:1.0")
+    testCompile("junit:junit:4.12")
+}
+
+eclipse {
+    classpath {
+        containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+        containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.12'
+}
+
+
+//**Maven Config **//
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allJava
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'so.glad.channel'
+            artifactId = 'soglad-channel-steam'
+
+            from components.java
+            artifacts {
+                archives javadocJar
+                archives sourcesJar
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            artifactUrls ["http://gear.glad.so:81/nexus/content/groups/public/"]
+            if(project.version.endsWith('-SNAPSHOT')) {
+                url "http://gear.glad.so:81/nexus/content/repositories/snapshots/"
+            } else {
+                url "http://gear.glad.so:81/nexus/content/repositories/releases/"
+            }
+            credentials {
+                username "${PUBLISH_USERNAME}"
+                password "${PUBLISH_PASSWORD}"
+            }
+        }
+    }
+}
