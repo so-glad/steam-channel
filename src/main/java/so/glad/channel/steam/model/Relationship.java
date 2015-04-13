@@ -8,18 +8,18 @@ import com.google.common.base.Objects;
  */
 public class Relationship {
 
-    private Long steamId;
+    private Long steamid;
 
     private String relationship;
 
-    private Long friendSince;
+    private Long friend_since;
 
-    public Long getSteamId() {
-        return steamId;
+    public Long getSteamid() {
+        return steamid;
     }
 
-    public void setSteamId(Long steamId) {
-        this.steamId = steamId;
+    public void setSteamid(Long steamid) {
+        this.steamid = steamid;
     }
 
     public String getRelationship() {
@@ -30,26 +30,30 @@ public class Relationship {
         this.relationship = relationship;
     }
 
-    public Long getFriendSince() {
-        return friendSince;
+    public Long getFriend_since() {
+        return friend_since;
     }
 
-    public void setFriendSince(Long friendSince) {
-        this.friendSince = friendSince;
+    public void setFriend_since(Long friend_since) {
+        this.friend_since = friend_since;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Relationship)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Relationship)){
+            return false;
+        }
         Relationship that = (Relationship) o;
-        return Objects.equal(steamId, that.steamId) &&
+        return Objects.equal(steamid, that.steamid) &&
                 Objects.equal(relationship, that.relationship) &&
-                Objects.equal(friendSince, that.friendSince);
+                Objects.equal(friend_since, that.friend_since);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(steamId, relationship, friendSince);
+        return Objects.hashCode(steamid, relationship, friend_since);
     }
 }

@@ -1,5 +1,6 @@
 package so.glad.channel.steam.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects;
 
 /**
@@ -7,13 +8,13 @@ import com.google.common.base.Objects;
  *         on 2015/4/12.
  */
 public class Ban {
-
+    @JsonProperty("SteamId")
     private Long steamId;
-
+    @JsonProperty("CommunityBanned")
     private Boolean communityBanned;
-
+    @JsonProperty("VACBanned")
     private Boolean vacBanned;
-
+    @JsonProperty("EconomyBan")
     private String economyBan;
 
     public Long getSteamId() {

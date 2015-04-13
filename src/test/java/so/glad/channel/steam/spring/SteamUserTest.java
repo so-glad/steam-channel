@@ -2,10 +2,15 @@ package so.glad.channel.steam.spring;
 
 import com.google.common.collect.Lists;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.web.client.RestTemplate;
+import so.glad.channel.steam.api.ISteamNews;
+import so.glad.channel.steam.api.ISteamUser;
+import so.glad.channel.steam.model.Ban;
 import so.glad.channel.steam.model.DataFormat;
 import so.glad.channel.steam.model.Player;
+import so.glad.channel.steam.model.Relationship;
 
 import java.util.List;
 
@@ -15,9 +20,15 @@ import java.util.List;
  */
 public class SteamUserTest {
 
+    private ISteamUser steamUser;
+
+    @Before
+    public void prepare(){
+        steamUser = new SteamUser("C61605E902B19F97D4653A8053B42E23", new RestTemplate());
+    }
+
     @Test
-    public void test(){
-        SteamUser steamUser = new SteamUser("C61605E902B19F97D4653A8053B42E23", new RestTemplate());
+    public void testGetPlayerSummaries(){
         List<Player> players = steamUser.getPlayerSummaries(Lists.newArrayList(76561198189022219l), DataFormat.DEFAULT);
         Assert.assertEquals(players, expectedPlayers());
     }
@@ -38,5 +49,38 @@ public class SteamUserTest {
         player1.setTimecreated(1427795997l);
         player1.setPersonastateflags(0);
         return Lists.newArrayList(player1);
+    }
+    @Test
+    public void testGetFriendList(){
+        List<Relationship> list = steamUser.getFriendList(76561198189022219l, true, DataFormat.DEFAULT);
+        Assert.assertEquals(expectedFriendList(), list);
+    }
+
+    private List<Relationship> expectedFriendList(){
+        Relationship relationship = new Relationship();
+        relationship.setSteamid(76561198087314032l);
+        relationship.setRelationship("friend");
+        relationship.setFriend_since(1428840799l);
+        return Lists.newArrayList(relationship);
+    }
+
+    @Test
+    public void testGetPlayerBans(){
+        List<Ban> bans = steamUser.getPlayerBans(76561198189022219l, 76561198087314032l);
+        Assert.assertEquals(expectedBans(), bans);
+    }
+
+    private List<Ban> expectedBans(){
+        Ban ban = new Ban();
+        ban.setCommunityBanned(false);
+        ban.setEconomyBan("none");
+        ban.setSteamId(76561198189022219l);
+        ban.setVacBanned(false);
+        Ban ban1 = new Ban();
+        ban1.setCommunityBanned(false);
+        ban1.setEconomyBan("none");
+        ban1.setSteamId(76561198087314032l);
+        ban1.setVacBanned(false);
+        return Lists.newArrayList(ban1,ban);
     }
 }
