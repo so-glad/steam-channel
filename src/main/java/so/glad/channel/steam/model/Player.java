@@ -14,7 +14,7 @@ public class Player {
 
     private Boolean profilestate;
 
-    private String personaName;//BigYelo,
+    private String personaname;//BigYelo,
 
     private Long lastlogoff;// 1428772849,
 
@@ -34,6 +34,10 @@ public class Player {
 
     private Integer personastateflags; // 512
 
+    private String gameextrainfo;
+
+    private Long gameid;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -42,7 +46,7 @@ public class Player {
         return Objects.equal(steamid, player.steamid) &&
                 Objects.equal(communityvisibilitystate, player.communityvisibilitystate) &&
                 Objects.equal(profilestate, player.profilestate) &&
-                Objects.equal(personaName, player.personaName) &&
+                Objects.equal(personaname, player.personaname) &&
                 Objects.equal(lastlogoff, player.lastlogoff) &&
                 Objects.equal(profileurl, player.profileurl) &&
                 Objects.equal(avatar, player.avatar) &&
@@ -51,12 +55,14 @@ public class Player {
                 Objects.equal(personastate, player.personastate) &&
                 Objects.equal(primaryclanid, player.primaryclanid) &&
                 Objects.equal(timecreated, player.timecreated) &&
-                Objects.equal(personastateflags, player.personastateflags);
+                Objects.equal(personastateflags, player.personastateflags) &&
+                Objects.equal(gameextrainfo, player.gameextrainfo) &&
+                Objects.equal(gameid, player.gameid);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(steamid, communityvisibilitystate, profilestate, personaName, lastlogoff, profileurl, avatar, avatarmedium, avatarfull, personastate, primaryclanid, timecreated, personastateflags);
+        return Objects.hashCode(steamid, communityvisibilitystate, profilestate, personaname, lastlogoff, profileurl, avatar, avatarmedium, avatarfull, personastate, primaryclanid, timecreated, personastateflags, gameextrainfo, gameid);
     }
 
     public Long getSteamid() {
@@ -71,8 +77,12 @@ public class Player {
         return communityvisibilitystate;
     }
 
-    public void setCommunityvisibilitystate(CommunityVisibilityState communityvisibilitystate) {
-        this.communityvisibilitystate = communityvisibilitystate;
+//    public void setCommunityvisibilitystate(CommunityVisibilityState communityvisibilitystate) {
+//        this.communityvisibilitystate = communityvisibilitystate;
+//    }
+
+    public void setCommunityvisibilitystate(int code){
+        this.communityvisibilitystate = CommunityVisibilityState.recognise(code);
     }
 
     public Boolean isProfilestate() {
@@ -83,12 +93,12 @@ public class Player {
         this.profilestate = profilestate;
     }
 
-    public String getPersonaName() {
-        return personaName;
+    public String getPersonaname() {
+        return personaname;
     }
 
-    public void setPersonaName(String personaName) {
-        this.personaName = personaName;
+    public void setPersonaname(String personaname) {
+        this.personaname = personaname;
     }
 
     public Long getLastlogoff() {
@@ -135,8 +145,12 @@ public class Player {
         return personastate;
     }
 
-    public void setPersonastate(PersonState personastate) {
-        this.personastate = personastate;
+   // public void setPersonastate(PersonState personastate) {
+//        this.personastate = personastate;
+//    }
+
+    public void setPersonastate(int personastate){
+        this.personastate = PersonState.recognise(personastate);
     }
 
     public Long getPrimaryclanid() {
@@ -161,5 +175,21 @@ public class Player {
 
     public void setPersonastateflags(Integer personastateflags) {
         this.personastateflags = personastateflags;
+    }
+
+    public String getGameextrainfo() {
+        return gameextrainfo;
+    }
+
+    public void setGameextrainfo(String gameextrainfo) {
+        this.gameextrainfo = gameextrainfo;
+    }
+
+    public Long getGameid() {
+        return gameid;
+    }
+
+    public void setGameid(Long gameid) {
+        this.gameid = gameid;
     }
 }

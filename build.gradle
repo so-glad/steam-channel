@@ -26,7 +26,13 @@ configurations {
 }
 
 dependencies {
+    compile("so.glad:soglad-client:1.0.1")
     compile("com.google.guava:guava:18.0")
+    compile("org.springframework:spring-web:4.1.6.RELEASE")
+    compile("com.fasterxml.jackson.core:jackson-core:2.5.2")
+    compile("com.fasterxml.jackson.core:jackson-databind:2.5.2")
+    compile("com.fasterxml.jackson.core:jackson-annotations:2.5.1")
+
     testCompile("so.glad:soglad-test:1.0")
     testCompile("junit:junit:4.12")
 }

@@ -1,7 +1,7 @@
 package so.glad.channel.steam.api;
 
-import so.glad.channel.steam.model.DataFormat;
 import so.glad.channel.steam.model.AppNews;
+import so.glad.channel.steam.model.DataFormat;
 
 /**
  * @author Cartoon
@@ -10,6 +10,5 @@ import so.glad.channel.steam.model.AppNews;
 public interface ISteamNews {
 
     AppNews getNewsForApp(Long appid, Integer count, Long maxLength, DataFormat format);
-
 
 }

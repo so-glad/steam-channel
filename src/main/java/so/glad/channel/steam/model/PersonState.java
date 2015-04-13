@@ -16,4 +16,13 @@ public enum PersonState {
     public int code(){
         return code;
     }
+
+    public static PersonState recognise(int code) {
+        for(PersonState personState: PersonState.values()){
+            if (code == personState.code()){
+                return personState;
+            }
+        }
+        return null;
+    }
 }

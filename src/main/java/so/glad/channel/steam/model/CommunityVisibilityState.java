@@ -15,4 +15,13 @@ public enum CommunityVisibilityState {
     public int code(){
         return code;
     }
+
+    public static CommunityVisibilityState recognise(int code) {
+        for(CommunityVisibilityState communityVisibilityState: CommunityVisibilityState.values()){
+            if (code == communityVisibilityState.code()){
+                return communityVisibilityState;
+            }
+        }
+        return null;
+    }
 }

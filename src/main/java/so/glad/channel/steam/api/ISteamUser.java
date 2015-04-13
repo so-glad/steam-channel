@@ -12,7 +12,7 @@ import java.util.List;
  *         on 2015/4/12.
  */
 public interface ISteamUser {
-    Player getPlayerSummaries(Long steamId, DataFormat dataFormat);
+    List<Player> getPlayerSummaries(List<Long> steamIds, DataFormat dataFormat);
 
     List<Relationship> getFriendList(Long steamId, Boolean onlyFriend, DataFormat dataFormat);
 
